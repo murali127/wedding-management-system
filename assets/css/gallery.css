@@ -1,0 +1,197 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(255, 192, 203, 0.5), rgba(247, 231, 206, 0.5)), url('assets/images/wedding-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333333; /* Dark Charcoal */
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: #FFD700; /* Golden Yellow - New accent for Gallery */
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #FFC0CB 0%, #F7E7CE 100%); /* Soft Pink to Champagne Gold */
+    border-bottom: 3px solid #800000; /* Deep Maroon */
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand-text {
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    color: #4169E1; /* Royal Blue */
+    font-weight: 700;
+}
+
+.welcome-logout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome-text {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #333333;
+}
+
+.btn-maroon {
+    background-color: #800000; /* Deep Maroon */
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-maroon:hover {
+    background-color: #4169E1; /* Royal Blue */
+    color: #FFFFFF;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: #4169E1; /* Royal Blue */
+    padding: 15px 0;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    text-align: center;
+}
+
+.nav-link {
+    color: #FFFFFF !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #FFC0CB; /* Soft Pink */
+    color: #333333 !important;
+}
+
+.nav-link.active {
+    background-color: #F7E7CE; /* Champagne Gold */
+    color: #800000 !important; /* Deep Maroon */
+}
+
+/* Gallery Section */
+.gallery-section {
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly opaque white */
+    min-height: 80vh;
+    padding: 50px 0;
+}
+
+.gallery-title {
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+}
+
+.gallery-subtitle {
+    font-size: 1.2rem;
+    color: #666666;
+}
+
+/* Masonry Grid */
+.gallery-grid {
+    column-count: 3; /* 3 columns for desktop */
+    column-gap: 20px;
+    padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        column-count: 2; /* 2 columns for tablets */
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-grid {
+        column-count: 1; /* 1 column for mobile */
+    }
+}
+
+.gallery-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+/* Overlay Effect */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: #FFFFFF;
+    padding: 20px 10px 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.overlay span {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Footer */
+.footer {
+    background-color: #333333; /* Dark Charcoal */
+    border-top: 3px solid #FFD700; /* Golden Yellow for Gallery */
+}
+
+.footer a {
+    color: #FFC0CB !important; /* Soft Pink */
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    color: #FFD700 !important; /* Golden Yellow */
+}

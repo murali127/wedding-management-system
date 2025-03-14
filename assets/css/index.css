@@ -1,84 +1,170 @@
-/* Wedding Theme Styling */
+/* General Styling */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f1f1; /* Soft ivory background */
-    color: #4a4a4a;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F5F5; /* Light Gray */
+    color: #333333; /* Dark Charcoal */
 }
 
 h1, h2, h5 {
-    font-family: 'Great Vibes', cursive;
-    color: #d89db8; /* Soft pink */
+    font-family: 'Playfair Display', serif;
+    color: #4169E1; /* Royal Blue */
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .logo {
-    width: 80px;
+    width: 70px;
     height: auto;
+    float: left;
 }
 
+/* Navigation Bar */
 .navbar {
-    background-color: #fff7f7 !important; /* Light pinkish background */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF; /* White */
+    border-bottom: 2px solid #FFC0CB; /* Soft Pink */
 }
 
 .nav-link {
-    color: #d89db8 !important;
-    font-weight: 500;
+    color: #800000 !important; /* Deep Maroon */
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
 .nav-link:hover {
-    color: #b56d8e !important; /* Darker pink on hover */
+    color: #4169E1 !important; /* Royal Blue */
 }
 
-/* Hero Section */
+/* Hero Section (Banner Carousel) */
 .hero-section {
-    background: url('../images/banner.jpg') no-repeat center center;
-    background-size: cover;
     position: relative;
-    padding: 100px 0;
+    height: 500px; /* Fixed height for consistency */
 }
 
-.hero-section .overlay {
+.hero-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Dark overlay for contrast */
+    z-index: -1;
+}
+
+.hero-section .carousel-item {
+    height: 500px;
+    transition: opacity 0.6s ease-in-out;
 }
 
 .hero-section h1 {
     font-size: 4rem;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #4169E1; /* Royal Blue */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .hero-section p {
     font-size: 1.5rem;
-    color: #fff;
+    color: #333333;
 }
 
-.btn-light {
-    background-color: #fff7f7;
-    border: 2px solid #d89db8;
-    color: #d89db8;
+.btn-maroon {
+    background-color: #800000; /* Deep Maroon */
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    transition: background-color 0.3s;
 }
 
-.btn-light:hover {
-    background-color: #d89db8;
-    color: #fff;
+.btn-maroon:hover {
+    background-color: #4169E1; /* Royal Blue */
+    color: #FFFFFF;
+}
+
+/* About Section */
+.about-card {
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+    min-height: 250px; /* Fixed minimum height for uniformity */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures content is evenly spaced */
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-icon {
+    font-size: 2.5rem;
+    color: #50C878; /* Emerald Green */
+    margin-bottom: 15px;
 }
 
 /* Features Section */
-.feature-icon {
-    font-size: 2.5rem;
-    color: #d89db8;
-    margin-bottom: 10px;
+.feature-card {
+    padding: 20px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s;
 }
 
-/* Gallery Section */
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #50C878; /* Emerald Green */
+    margin-bottom: 15px;
+}
+
+/* Testimonials Section */
+.carousel-inner {
+    padding: 20px 0;
+}
+
+.carousel-item {
+    transition: transform 0.6s ease-in-out; /* Smooth transition */
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #800000; /* Deep Maroon */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #4169E1; /* Royal Blue */
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%;
+    opacity: 0.7;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: #50C878; /* Emerald Green */
+    border-radius: 50%;
+    padding: 10px;
+}
+
+/* Gallery Section (Carousel) */
+#galleryCarousel .carousel-inner {
+    padding: 0;
+}
+
 .gallery-img {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
 }
 
@@ -86,26 +172,22 @@ h1, h2, h5 {
     transform: scale(1.05);
 }
 
-/* Contact Form */
+/* Contact Section */
 .form-control {
-    border-color: #d89db8;
+    border: 2px solid #FFC0CB; /* Soft Pink */
+    border-radius: 10px;
 }
 
-.btn-primary {
-    background-color: #d89db8;
-    border-color: #d89db8;
-}
-
-.btn-primary:hover {
-    background-color: #b56d8e;
-    border-color: #b56d8e;
+.text-green {
+    color: #50C878; /* Emerald Green */
 }
 
 /* Footer */
 footer a {
-    color: #fff7f7 !important;
+    color: #FFC0CB !important; /* Soft Pink */
+    text-decoration: none;
 }
 
 footer a:hover {
-    color: #d89db8 !important;
+    color: #4169E1 !important; /* Royal Blue */
 }

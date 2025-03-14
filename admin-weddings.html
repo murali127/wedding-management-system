@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Weddings (Admin) - BlissfulKnots ✨💍</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/adminweddings.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="home.html" class="brand">
+                <img src="assets/images/logo.png" alt="BlissfulKnots Logo" class="logo">
+                <span class="brand-text">BlissfulKnots ✨💍</span>
+            </a>
+            <div class="welcome-logout">
+                <h1 class="welcome-text">Welcome, Admin!</h1>
+                <a href="logout" class="btn btn-maroon btn-sm">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin-dashboard.html">Admin Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-weddings.html">View Weddings</a> <!-- Changed to admin-weddings.html -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="rsvp-details.html">RSVP Details</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="main-content py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="section-title">All Weddings (Admin View)</h2>
+                    <p class="text-muted">Manage weddings and their events here.</p>
+                </div>
+                <div class="col-12">
+                    <div id="wedding-list" class="row g-4">
+                        <!-- Dynamically populated weddings -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-white text-center py-4">
+        <div class="container">
+            <p>© 2025 BlissfulKnots ✨💍</p>
+            <p>
+                <a href="#" class="text-white">About Us</a> | 
+                <a href="#" class="text-white">Contact</a> | 
+                <a href="https://www.instagram.com/murali_paila__/profilecard/?igsh=MXNhOWhoZDZyZHM4cA%3D%3D" class="text-white">Instagram</a> | 
+                <a href="https://wa.me/+918008242013" class="text-white">Facebook</a>
+            </p>
+            <p>Contact us: <a href="mailto:muralijay360@gmail.com" class="text-white">support@blissfulknots.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Page loaded - Fetching weddings...");
+            fetchWeddings();
+        });
+
+        function fetchWeddings() {
+            fetch("admin?action=fetch_weddings_and_events")
+                .then(response => {
+                    console.log("Response received:", response);
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Weddings data:", data);
+                    const weddingList = document.getElementById("wedding-list");
+                    weddingList.innerHTML = "";
+                    if (data.weddings.length === 0) {
+                        weddingList.innerHTML = '<p class="text-center text-muted">No weddings available yet.</p>';
+                    } else {
+                        data.weddings.forEach(wedding => {
+                            const weddingCard = document.createElement("div");
+                            weddingCard.className = "col-md-6";
+                            weddingCard.innerHTML = `
+                                <div class="wedding-card">
+                                    <h3 class="wedding-title">Wedding: ${wedding.name}</h3>
+                                    <p class="wedding-details">
+                                        <i class="bi bi-calendar-heart"></i> <strong>Date:</strong> ${wedding.date}<br>
+                                        <i class="bi bi-clock"></i> <strong>Time:</strong> ${wedding.time}<br>
+                                        <i class="bi bi-geo-alt"></i> <strong>Venue:</strong> ${wedding.venue}
+                                    </p>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-maroon btn-sm" onclick="editWedding(${wedding.id})">Edit Wedding</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteWedding(${wedding.id})">Delete Wedding</button>
+                                    </div>
+                                    <h4 class="event-title mt-3">Events:</h4>
+                                    <ul class="event-list">
+                                        ${wedding.events.length > 0 ? wedding.events.map(event => `
+                                            <li>
+                                                <span>${event.name} - <strong>Date:</strong> ${event.date}, <strong>Time:</strong> ${event.time}, <strong>Venue:</strong> ${event.venue}</span>
+                                                <div class="d-flex gap-2 mt-2">
+                                                    <button class="btn btn-maroon btn-sm" onclick="editEvent(${event.id})">Edit Event</button>
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteEvent(${event.id})">Delete Event</button>
+                                                </div>
+                                            </li>
+                                        `).join("") : '<li>No events for this wedding yet.</li>'}
+                                    </ul>
+                                </div>
+                            `;
+                            weddingList.appendChild(weddingCard);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching weddings:", error);
+                    alert("Failed to fetch weddings. Please try again.");
+                });
+        }
+
+        function editWedding(weddingId) {
+            console.log("Edit Wedding - Wedding ID: " + weddingId);
+            window.location.href = "edit-wedding.html?wedding_id=" + weddingId;
+        }
+
+        function deleteWedding(weddingId) {
+            if (confirm("Are you sure you want to delete this wedding?")) {
+                fetch("admin?action=delete_wedding&wedding_id=" + weddingId, { method: "POST" })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Wedding deleted successfully!");
+                            fetchWeddings(); // Refresh list
+                        } else {
+                            alert("Failed to delete wedding.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting wedding:", error);
+                        alert("An error occurred while deleting the wedding.");
+                    });
+            }
+        }
+
+        function editEvent(eventId) {
+            console.log("Edit Event - Event ID: " + eventId);
+            window.location.href = "edit-event.html?event_id=" + eventId;
+        }
+
+        function deleteEvent(eventId) {
+            if (confirm("Are you sure you want to delete this event?")) {
+                fetch("admin?action=delete_event&event_id=" + eventId, { method: "POST" })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Event deleted successfully!");
+                            fetchWeddings(); // Refresh list
+                        } else {
+                            alert("Failed to delete event.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting event:", error);
+                        alert("An error occurred while deleting the event.");
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

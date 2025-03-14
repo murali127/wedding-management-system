@@ -3,29 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="assets/js/script.js"></script>
+    <title>User Dashboard - BlissfulKnots ✨💍</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 <body>
-    <header>
-        <img src="assets/images/logo.png" alt="Logo">
-        <h1>User Dashboard</h1>
-        <nav>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="weddings.html">View Weddings</a>
-            <a href="logout">Logout</a>
-        </nav>
-    </header>
-    <main>
-        <h2>Your RSVPs</h2>
-        <div id="rsvp-list">
-            <!-- Dynamically populated RSVPs -->
+    <!-- Header -->
+    <header class="header py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="home.html" class="brand">
+                <img src="assets/images/logo.png" alt="BlissfulKnots Logo" class="logo">
+                <span class="brand-text">BlissfulKnots ✨💍</span>
+            </a>
+            <div class="welcome-logout">
+                <h1 class="welcome-text">Welcome, User!</h1>
+                <a href="logout" class="btn btn-maroon btn-sm">Logout</a>
+            </div>
         </div>
-    </main>
+    </header>
 
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav d-flex justify-content-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html">User Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="weddings.html">View Weddings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="main-content py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="section-title">Your Booked Events</h2>
+                    <p class="text-muted">Here’s a list of events you’ve RSVP’d for. Manage your attendance with ease!</p>
+                </div>
+                <div class="col-12">
+                    <div id="rsvp-list" class="row g-4">
+                        <!-- Dynamically populated RSVPs -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-white text-center py-4">
+        <div class="container">
+            <p>© 2025 BlissfulKnots ✨💍</p>
+            <p>
+                <a href="#" class="text-white">About Us</a> | 
+                <a href="#" class="text-white">Contact</a> | 
+                <a href="https://www.instagram.com/murali_paila__/profilecard/?igsh=MXNhOWhoZDZyZHM4cA%3D%3D" class="text-white">Instagram</a> | 
+                <a href="https://wa.me/+918008242013" class="text-white">Facebook</a>
+            </p>
+            <p>Contact us: <a href="mailto:muralijay360@gmail.com" class="text-white">support@blissfulknots.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
     <script>
-        // Fetch the list of RSVPs for the logged-in user
         document.addEventListener("DOMContentLoaded", function () {
             console.log("Page loaded - Fetching RSVPs...");
             fetchRSVPs();
@@ -33,7 +98,7 @@
 
         function fetchRSVPs() {
             console.log("Fetching RSVPs...");
-            fetch("dashboard") // Ensure this matches the servlet URL mapping
+            fetch("dashboard")
                 .then(response => {
                     console.log("Response received:", response);
                     if (!response.ok) {
@@ -45,19 +110,36 @@
                     console.log("RSVPs data:", data);
                     const rsvpList = document.getElementById("rsvp-list");
                     rsvpList.innerHTML = ""; // Clear existing content
-                    data.forEach(rsvp => {
-                        const rsvpDiv = document.createElement("div");
-                        rsvpDiv.innerHTML = `
-                            <h3>${rsvp.eventName}</h3>
-                            <p>Date: ${rsvp.eventDate}, Time: ${rsvp.eventTime}, Venue: ${rsvp.eventVenue}</p>
-                        `;
-                        rsvpList.appendChild(rsvpDiv);
-                    });
+                    if (data.length === 0) {
+                        rsvpList.innerHTML = '<p class="text-center text-muted">No events booked yet. Check out available events!</p>';
+                    } else {
+                        data.forEach(rsvp => {
+                            const rsvpCard = document.createElement("div");
+                            rsvpCard.className = "col-md-4";
+                            rsvpCard.innerHTML = `
+                                <div class="rsvp-card">
+                                    <h3 class="rsvp-title">${rsvp.eventName}</h3>
+                                    <p class="rsvp-details">
+                                        <i class="bi bi-calendar-heart"></i> <strong>Date:</strong> ${rsvp.eventDate}<br>
+                                        <i class="bi bi-clock"></i> <strong>Time:</strong> ${rsvp.eventTime}<br>
+                                        <i class="bi bi-geo-alt"></i> <strong>Venue:</strong> ${rsvp.eventVenue}
+                                    </p>
+                                    <button class="btn btn-maroon btn-sm" onclick="manageRSVP('${rsvp.eventName}')">Manage RSVP</button>
+                                </div>
+                            `;
+                            rsvpList.appendChild(rsvpCard);
+                        });
+                    }
                 })
                 .catch(error => {
                     console.error("Error fetching RSVPs:", error);
                     alert("Failed to fetch RSVPs. Please try again.");
                 });
+        }
+
+        function manageRSVP(eventName) {
+            // Navigate to weddings.html with eventName as a query parameter
+            window.location.href = `weddings.html?eventName=${encodeURIComponent(eventName)}`;
         }
     </script>
 </body>

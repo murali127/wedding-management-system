@@ -3,20 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Gallery - BlissfulKnots ✨💍</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Lightbox2 CSS (for image popups) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/gallery.css">
 </head>
 <body>
-    <header>
-        <img src="assets/images/logo.png" alt="Logo">
-        <h1>Gallery</h1>
-    </header>
-    <main>
-        <div class="gallery">
-            <img src="assets/images/banner.jpg" alt="Event 1">
-            <img src="assets/images/banner.jpg" alt="Event 2">
-            <!-- Add more images dynamically -->
+    <!-- Header -->
+    <header class="header py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="home.html" class="brand">
+                <img src="assets/images/logo.png" alt="BlissfulKnots Logo" class="logo">
+                <span class="brand-text">BlissfulKnots ✨💍</span>
+            </a>
+            <div class="welcome-logout">
+                <h1 class="welcome-text">Welcome, Guest!</h1>
+                <a href="logout" class="btn btn-maroon btn-sm">Logout</a>
+            </div>
         </div>
-    </main>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav d-flex justify-content-center gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">User Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="weddings.html">View Weddings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="gallery-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="gallery-title animate__animated animate__fadeIn">Moments of Bliss</h2>
+                    <p class="gallery-subtitle text-muted animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
+                        Relive the magic of our weddings and events through these stunning captures.
+                    </p>
+                </div>
+            </div>
+            <div class="gallery-grid">
+                <!-- Gallery Images -->
+                <div class="gallery-item animate__animated animate__zoomIn" style="animation-delay: 0.1s;">
+                    <a href="assets/images/wedding1.jpg" data-lightbox="gallery" data-title="Wedding Ceremony">
+                        <img src="assets/images/wedding1.jpg" alt="Wedding Ceremony" class="img-fluid">
+                        <div class="overlay">
+                            <span>Wedding Ceremony</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+                    <a href="assets/images/wedding2.jpg" data-lightbox="gallery" data-title="Reception Night">
+                        <img src="assets/images/reception.jpg" alt="Reception Night" class="img-fluid">
+                        <div class="overlay">
+                            <span>Reception Night</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item animate__animated animate__zoomIn" style="animation-delay: 0.3s;">
+                    <a href="assets/images/wedding3.jpg" data-lightbox="gallery" data-title="First Dance">
+                        <img src="assets/images/dance.jpg" alt="First Dance" class="img-fluid">
+                        <div class="overlay">
+                            <span>First Dance</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
+                    <a href="assets/images/wedding4.jpg" data-lightbox="gallery" data-title="Cake Cutting">
+                        <img src="assets/images/cake.jpg" alt="Cake Cutting" class="img-fluid">
+                        <div class="overlay">
+                            <span>Cake Cutting</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
+                    <a href="assets/images/wedding5.jpg" data-lightbox="gallery" data-title="Bridal Party">
+                        <img src="assets/images/bridal.jpg" alt="Bridal Party" class="img-fluid">
+                        <div class="overlay">
+                            <span>Bridal Party</span>
+                        </div>
+                    </a>
+                </div>
+                <!-- Add more images as needed -->
+                 <div class="gallery-item animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
+                    <a href="assets/images/wedding6.jpg" data-lightbox="gallery" data-title="Outdoor Dance">
+                        <img src="assets/images/outdoor.jpg" alt="Outdoor Dance" class="img-fluid">
+                        <div class="overlay">
+                            <span>Outdoor Dance</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-white text-center py-4">
+        <div class="container">
+            <p>© 2025 BlissfulKnots ✨💍</p>
+            <p>
+                <a href="#" class="text-white">About Us</a> | 
+                <a href="#" class="text-white">Contact</a> | 
+                <a href="https://www.instagram.com/murali_paila__/profilecard/?igsh=MXNhOWhoZDZyZHM4cA%3D%3D" class="text-white">Instagram</a> | 
+                <a href="https://wa.me/+918008242013" class="text-white">Facebook</a>
+            </p>
+            <p>Contact us: <a href="mailto:muralijay360@gmail.com" class="text-white">support@blissfulknots.com</a></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Lightbox2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <!-- Animate.css (for animations) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </body>
 </html>
