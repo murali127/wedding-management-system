@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/script.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/images/logo.png" alt="Logo">
+        <h1>Edit Event</h1>
+        <nav>
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Edit Event</h2>
+        <form id="editEventForm" action="admin" method="POST">
+            <input type="hidden" name="action" value="edit_event">
+            <input type="hidden" id="event_id" name="event_id">
+            <label for="event_name">Event Name:</label>
+            <input type="text" id="event_name" name="name" required>
+            <label for="event_date">Date:</label>
+            <input type="date" id="event_date" name="date" required>
+            <label for="event_time">Time:</label>
+            <input type="time" id="event_time" name="time" required>
+            <label for="event_venue">Venue:</label>
+            <input type="text" id="event_venue" name="venue" required>
+            <button type="submit">Update Event</button>
+        </form>
+    </main>
+
+    <script>
+        // Fetch the event details and populate the form
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get("event_id"); // Extract event_id from URL
+
+            if (eventId) {
+                fetchEventDetails(eventId); // Fetch event details using event_id
+            } else {
+                console.error("Event ID not found in the URL.");
+                alert("Event ID is missing. Please try again.");
+            }
+        });
+
+        // Function to fetch event details
+        function fetchEventDetails(eventId) {
+            fetch(`admin?action=fetch_event&event_id=${eventId}`)
+                .then(response => {
+                    console.log("Response received:", response);
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Event details data:", data);
+                    // Populate the form fields with event details
+                    document.getElementById("event_id").value = data.id;
+                    document.getElementById("event_name").value = data.name;
+                    document.getElementById("event_date").value = data.date;
+                    document.getElementById("event_time").value = data.time;
+                    document.getElementById("event_venue").value = data.venue;
+                })
+                .catch(error => {
+                    console.error("Error fetching event details:", error);
+                    alert("Failed to fetch event details. Please try again.");
+                });
+        }
+    </script>
+</body>
+</html>

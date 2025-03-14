@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Wedding</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/script.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/images/logo.png" alt="Logo">
+        <h1>Edit Wedding</h1>
+        <nav>
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Edit Wedding Details</h2>
+        <form id="editWeddingForm" action="admin" method="POST">
+            <input type="hidden" name="action" value="edit_wedding">
+            <input type="hidden" id="wedding_id" name="wedding_id">
+            <label for="name">Wedding Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+            <label for="venue">Venue:</label>
+            <input type="text" id="venue" name="venue" required>
+            <button type="submit">Save Changes</button>
+        </form>
+    </main>
+
+    <script>
+        // Fetch wedding data for editing
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const weddingId = urlParams.get("wedding_id");
+
+            if (weddingId) {
+                fetchWeddingData(weddingId);
+            } else {
+                alert("Wedding ID not found. Redirecting to dashboard...");
+                window.location.href = "admin-dashboard.html";
+            }
+        });
+
+        function fetchWeddingData(weddingId) {
+            fetch(`admin?action=fetch_wedding_for_edit&wedding_id=${weddingId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("wedding_id").value = data.id;
+                    document.getElementById("name").value = data.name;
+                    document.getElementById("date").value = data.date;
+                    document.getElementById("time").value = data.time;
+                    document.getElementById("venue").value = data.venue;
+                })
+                .catch(error => {
+                    console.error("Error fetching wedding data:", error);
+                    alert("Failed to fetch wedding data. Please try again.");
+                });
+        }
+    </script>
+</body>
+</html>

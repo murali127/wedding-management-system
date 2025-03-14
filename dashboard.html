@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/script.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/images/logo.png" alt="Logo">
+        <h1>User Dashboard</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="weddings.html">View Weddings</a>
+            <a href="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Your RSVPs</h2>
+        <div id="rsvp-list">
+            <!-- Dynamically populated RSVPs -->
+        </div>
+    </main>
+
+    <script>
+        // Fetch the list of RSVPs for the logged-in user
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Page loaded - Fetching RSVPs...");
+            fetchRSVPs();
+        });
+
+        function fetchRSVPs() {
+            console.log("Fetching RSVPs...");
+            fetch("dashboard") // Ensure this matches the servlet URL mapping
+                .then(response => {
+                    console.log("Response received:", response);
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("RSVPs data:", data);
+                    const rsvpList = document.getElementById("rsvp-list");
+                    rsvpList.innerHTML = ""; // Clear existing content
+                    data.forEach(rsvp => {
+                        const rsvpDiv = document.createElement("div");
+                        rsvpDiv.innerHTML = `
+                            <h3>${rsvp.eventName}</h3>
+                            <p>Date: ${rsvp.eventDate}, Time: ${rsvp.eventTime}, Venue: ${rsvp.eventVenue}</p>
+                        `;
+                        rsvpList.appendChild(rsvpDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching RSVPs:", error);
+                    alert("Failed to fetch RSVPs. Please try again.");
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="assets/js/script.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/images/logo.png" alt="Logo">
+        <h1>Events</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="logout">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Events for Wedding</h2>
+        <div id="event-list">
+            <!-- Events will be populated dynamically using JavaScript -->
+        </div>
+    </main>
+
+    <script>
+        // Fetch the list of events for the selected wedding
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Page loaded - Fetching events...");
+
+            // Extract wedding_id from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const weddingId = urlParams.get("wedding_id");
+
+            if (weddingId) {
+                console.log("Wedding ID found in URL: " + weddingId);
+                fetchEvents(weddingId); // Fetch events for the given wedding_id
+            } else {
+                console.error("Wedding ID not found in URL.");
+                alert("No wedding selected. Redirecting to Weddings page...");
+                window.location.href = "weddings.html"; // Redirect to the Weddings page
+            }
+        });
+
+        // Fetch events and their RSVP status for the current user
+        function fetchEvents(weddingId) {
+    fetch(`event?wedding_id=${weddingId}`)
+        .then(response => response.json())
+        .then(data => {
+            const eventList = document.getElementById("event-list");
+            eventList.innerHTML = ""; // Clear existing content
+
+            data.forEach(event => {
+                const eventDiv = document.createElement("div");
+                eventDiv.innerHTML = `
+                    <h3>${event.name}</h3>
+                    <p>Date: ${event.date}, Time: ${event.time}, Venue: ${event.venue}</p>
+                    <button id="rsvp-btn-${event.id}" onclick="toggleRSVP(${event.id}, ${event.rsvped})">
+                        ${event.rsvped ? "RSVP'd" : "RSVP"}
+                    </button>
+                    ${event.rsvped ? `<button onclick="cancelRSVP(${event.id})">Cancel RSVP</button>` : ""}
+                `;
+                eventList.appendChild(eventDiv);
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching events:", error);
+            alert("Failed to fetch events. Please try again.");
+        });
+}
+
+// Toggle RSVP status (RSVP or Cancel RSVP)
+function toggleRSVP(eventId, isRsvped) {
+    if (isRsvped) {
+        cancelRSVP(eventId); // Cancel RSVP if already RSVP'd
+    } else {
+        rsvpEvent(eventId); // RSVP if not already RSVP'd
+    }
+}
+
+// RSVP to an event
+function rsvpEvent(eventId) {
+    console.log("RSVP to Event - Event ID: " + eventId);
+
+    fetch("rsvp?action=rsvp_event&event_id=" + eventId, { method: "POST" })
+        .then(response => {
+            console.log("RSVP response received:", response);
+            if (response.ok) {
+                alert("RSVP to Event successful!");
+                window.location.reload(); // Refresh the page to update the button
+            } else {
+                alert("Failed to RSVP to Event.");
+            }
+        })
+        .catch(error => {
+            console.error("Error RSVPing to Event:", error);
+            alert("An error occurred while RSVPing. Please try again.");
+        });
+}
+
+// Cancel RSVP for an event
+function cancelRSVP(eventId) {
+    console.log("Cancel RSVP for Event - Event ID: " + eventId);
+
+    fetch("rsvp?action=cancel_rsvp&event_id=" + eventId, { method: "POST" })
+        .then(response => {
+            console.log("Cancel RSVP response received:", response);
+            if (response.ok) {
+                alert("RSVP cancelled successfully!");
+                window.location.reload(); // Refresh the page to update the button
+            } else {
+                alert("Failed to cancel RSVP.");
+            }
+        })
+        .catch(error => {
+            console.error("Error cancelling RSVP:", error);
+            alert("An error occurred while cancelling RSVP. Please try again.");
+        });
+}
+    </script>
+</body>
+</html>
