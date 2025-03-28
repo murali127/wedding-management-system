@@ -23,7 +23,7 @@
             </a>
             <div class="welcome-logout">
                 <h1 class="welcome-text">Welcome, Admin!</h1>
-                <button id="logout-btn" class="btn btn-maroon btn-sm">Logout</button> <!-- Changed to button -->
+                <button id="logout-btn" class="btn btn-maroon btn-sm">Logout</button>
             </div>
         </div>
     </header>
@@ -43,7 +43,10 @@
                         <a class="nav-link" href="admin-weddings.html">View Weddings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="rsvp-details.html">RSVP Details</a> <!-- Removed extra 'active' class -->
+                        <a class="nav-link" href="rsvp-details.html">RSVP Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact-submissions.html">Contact Submissions</a>
                     </li>
                 </ul>
             </div>
@@ -162,9 +165,8 @@
             // Add logout functionality
             document.getElementById("logout-btn").addEventListener("click", function() {
                 console.log("Logout clicked - Redirecting to index.html");
-                // Simulate logout by clearing any client-side state (if applicable)
-                localStorage.clear(); // Optional: Clear localStorage if used for session
-                window.location.href = "index.html"; // Redirect to index.html
+                localStorage.clear();
+                window.location.href = "index.html";
             });
         });
 
@@ -256,7 +258,7 @@
                     .then(response => {
                         if (response.ok) {
                             alert("Wedding deleted successfully!");
-                            fetchWeddingsAndEvents(); // Refresh list
+                            fetchWeddingsAndEvents();
                         } else {
                             alert("Failed to delete wedding.");
                         }
@@ -279,7 +281,7 @@
                     .then(response => {
                         if (response.ok) {
                             alert("Event deleted successfully!");
-                            fetchWeddingsAndEvents(); // Refresh list
+                            fetchWeddingsAndEvents();
                         } else {
                             alert("Failed to delete event.");
                         }
